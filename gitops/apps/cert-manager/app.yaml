@@ -7,13 +7,11 @@ spec:
   project: default
   destination:
     server: https://kubernetes.default.svc
-    namespace: cert-manager    # Best practice to run cert-manager in its own namespace
+    namespace: cert-manager
   source:
     chart: cert-manager
     repoURL: https://charts.jetstack.io
     targetRevision: v1.18.2
-    helm:
-      releaseName: cert-manager
   syncPolicy:
     automated:
       prune: true
