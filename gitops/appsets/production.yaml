@@ -18,14 +18,8 @@ spec:
     spec:
       project: default
 
-      source:
-        repoURL: https://github.com/vdksystem/global-cluster.git
-        targetRevision: HEAD
-        path: '{{.path.path}}'
-
       destination:
         server: https://kubernetes.default.svc
-        namespace: argocd
 
       syncPolicy:
         syncOptions:
