@@ -11,6 +11,7 @@ spec:
     helm:
       releaseName: k8ssandra-operator
       namespace: k8ssandra
+      version: 1.25.0
   destination:
     name: "in-cluster"
     namespace: argocd
