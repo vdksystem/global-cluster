@@ -11,6 +11,9 @@ spec:
     helm:
       releaseName: k8ssandra-operator
       namespace: k8ssandra
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: k8ssandra
   syncPolicy:
     automated:
       prune: true
