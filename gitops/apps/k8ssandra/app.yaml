@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: k8ssandra
+spec:
+  project: default
+  source:
+    chart: k8ssandra-operator
+    repoURL: https://helm.k8ssandra.io/stable
+    targetRevision: 1.25.0
+  helm:
+    releaseName: k8ssandra-operator
+  destination:
+    name: "in-cluster"
+    namespace: k8ssandra
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
