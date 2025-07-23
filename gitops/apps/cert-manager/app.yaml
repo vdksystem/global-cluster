@@ -11,9 +11,6 @@ spec:
     helm:
       releaseName: cert-manager
       namespace: devops
-  destination:
-    name: "in-cluster"
-    namespace: argocd
   syncPolicy:
     automated:
       prune: true
