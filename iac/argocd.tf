@@ -15,7 +15,7 @@ resource "helm_release" "argocd" {
   chart            = "argo-cd"
   namespace        = "argocd"
   create_namespace = true
-  version          = "3.35.4"
+  version          = "8.1.4"
 
   values = [file("${path.module}/argocd.yaml")]
 }
@@ -26,4 +26,7 @@ data "http" "argocd_application" {
 
 resource "kubectl_manifest" "application" {
   yaml_body = data.http.argocd_application.response_body
+  depends_on = [
+    helm_release.argocd
+  ]
 }
