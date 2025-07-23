@@ -11,7 +11,7 @@ spec:
       repoURL: https://github.com/vdksystem/global-cluster.git
       revision: HEAD
       directories:
-      - path: apps/*
+      - path: gitops/apps/*
   template:
     metadata:
       name: '{{index .path.segments 1}}-{{index .path.segments 3}}'

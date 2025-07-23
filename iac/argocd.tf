@@ -4,6 +4,10 @@ provider "helm" {
   }
 }
 
+provider "kubernetes" {
+  config_path = "~/.kube/config"
+}
+
 resource "helm_release" "argocd" {
   name = "argocd"
 
@@ -14,4 +18,12 @@ resource "helm_release" "argocd" {
   version          = "3.35.4"
 
   values = [file("${path.module}/argocd.yaml")]
+}
+
+data "http" "argocd_application" {
+  url = "https://raw.githubusercontent.com/vdksystem/global-cluster/refs/heads/main/gitops/applications.yaml"
+}
+
+resource "kubectl_manifest" "application" {
+  yaml_body = data.http.argocd_application.response_body
 }
