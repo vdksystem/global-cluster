@@ -8,9 +8,9 @@ spec:
     chart: k8ssandra-operator
     repoURL: https://helm.k8ssandra.io/stable
     targetRevision: 1.25.0
-  helm:
-    releaseName: k8ssandra-operator
-    namespace: k8ssandra
+    helm:
+      releaseName: k8ssandra-operator
+      namespace: k8ssandra
   destination:
     name: "in-cluster"
     namespace: argocd
