@@ -13,14 +13,5 @@ spec:
     repoURL: https://charts.jetstack.io
     targetRevision: v1.18.2
   syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
     syncOptions:
       - CreateNamespace=true
-    retry:
-      limit: 5              # Number of sync retries
-      backoff:
-        duration: 5s        # Initial backoff duration
-        factor: 2           # Factor to multiply duration after each failure
-        maxDuration: 3m     # Maximum backoff duration
