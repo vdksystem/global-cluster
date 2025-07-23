@@ -14,20 +14,6 @@ spec:
     targetRevision: v1.18.2
     helm:
       releaseName: cert-manager
-      values: |
-        installCRDs: true
-        global:
-          leaderElection:
-            namespace: cert-manager
-        prometheus:
-          enabled: true
-        webhook:
-          enabled: true
-        serviceAccount:
-          create: true
-        securityContext:
-          enabled: true
-          fsGroup: 1001
   syncPolicy:
     automated:
       prune: true
