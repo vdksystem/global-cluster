@@ -14,7 +14,7 @@ spec:
       - path: gitops/apps/*
   template:
     metadata:
-      name: '{{index .path.segments 1}}-{{index .path.segments 3}}'
+      name: '{{.path.basename}}'
     spec:
       project: default
 
@@ -25,7 +25,7 @@ spec:
 
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{index .path.segments 1}}-{{index .path.segments 3}}'
+        namespace: apps
 
       syncPolicy:
         syncOptions:
