@@ -2,6 +2,7 @@ apiVersion: k8ssandra.io/v1alpha1
 kind: K8ssandraCluster
 metadata:
   name: demo
+  namespace: k8ssandra
 spec:
   cassandra:
     serverVersion: "4.0.1"
@@ -16,8 +17,6 @@ spec:
     config:
       jvmOptions:
         heapSize: 512M
-    networking:
-      hostNetwork: true
     datacenters:
       - metadata:
           name: dc1
