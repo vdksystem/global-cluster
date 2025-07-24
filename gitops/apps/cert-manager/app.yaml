@@ -14,8 +14,6 @@ spec:
     targetRevision: v1.18.2
   skipCrds: false
   parameters:
-    - name: crd.enabled
-      value: "true"
     - name: installCRDs
       value: "true"
   syncPolicy:
