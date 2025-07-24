@@ -13,9 +13,9 @@ spec:
     repoURL: https://charts.jetstack.io
     targetRevision: v1.18.2
   skipCrds: false
-  values: |
-    crd:
-      enabled: true
+  parameters:
+    - name: crd.enabled
+      value: "true"
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
