@@ -1,16 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: kafka
+  name: strimzi-kafka-operator
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "3"
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   project: default
   source:
     repoURL: https://github.com/vdksystem/global-cluster.git
     targetRevision: HEAD
-    path: gitops/manifests/kafka
+    path: gitops/manifests/strimzi
   destination:
     server: https://kubernetes.default.svc
     namespace: kafka
