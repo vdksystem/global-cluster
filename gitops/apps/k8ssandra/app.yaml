@@ -11,6 +11,8 @@ spec:
     helm:
       releaseName: k8ssandra-operator
       namespace: k8ssandra
+      values: | 
+        disableCrdUpgraderJob: true
   destination:
     server: https://kubernetes.default.svc
     namespace: k8ssandra
@@ -20,5 +22,4 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-  values: |
-    disableCrdUpgraderJob: true
+

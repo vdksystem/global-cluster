@@ -12,10 +12,11 @@ spec:
     chart: cert-manager
     repoURL: https://charts.jetstack.io
     targetRevision: v1.18.2
-  values: |
-    installCRDs: true
-    crds:
-      enabled: true
+    helm:
+      values: |
+        installCRDs: true
+        crds:
+          enabled: true
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
