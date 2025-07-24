@@ -6,7 +6,6 @@ metadata:
   labels:
     strimzi.io/cluster: my-cluster
 spec:
-  image: vdksystem/kafka-connect-cassandra
   class: com.datastax.oss.kafka.sink.CassandraSinkConnector
   tasksMax: 1
   config:
