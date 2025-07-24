@@ -4,3 +4,4 @@ resources:
   - k8ssandra-repo.yaml
   - cert-manager/app.yaml
   - k8ssandra
+  - kafka.yaml
