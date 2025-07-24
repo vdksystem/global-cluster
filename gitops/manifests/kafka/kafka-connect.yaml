@@ -3,6 +3,8 @@ kind: KafkaConnect
 metadata:
   name: main
   namespace: kafka
+  labels:
+    strimzi.io/cluster: my-cluster
 spec:
   version: 4.0.0
   replicas: 1
