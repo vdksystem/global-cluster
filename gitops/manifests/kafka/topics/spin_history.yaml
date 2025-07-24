@@ -1,11 +1,12 @@
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
-  name: spin.history.slot_game.spins_by_user
+  name: spin.history.slot-game.spins-by-user
   namespace: kafka
   labels:
     strimzi.io/cluster: my-cluster
 spec:
+  topicName: spin.history.slot_game.spins_by_user
   partitions: 3
   replicas: 1
   config:
