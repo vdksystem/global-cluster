@@ -15,3 +15,6 @@ spec:
     key.converter: org.apache.kafka.connect.storage.StringConverter
     value.converter: org.apache.kafka.connect.json.JsonConverter
     value.converter.schemas.enable: false
+    offset.storage.replication.factor: 1
+    config.storage.replication.factor: 1
+    status.storage.replication.factor: 1
