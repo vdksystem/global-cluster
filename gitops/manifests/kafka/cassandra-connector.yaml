@@ -10,8 +10,8 @@ spec:
   tasksMax: 1
   config:
     topics: spin.history
-    contactPoints: cassandra.default.svc.cluster.local
+    contactPoints: demo-dc1-contact-points-service.k8ssandra.svc.cluster.local
     keyspace: slot_game
-    topic.spin.history.slot_game.spins_by_user.mapping: "username=value.username, spin_id=value.spinId, timestamp=value.timestamp, bet_amount=value.betAmount, win_amount=value.winAmount, reels=value.reels"
+    topic.spin.history.slot_game.spins_by_user.mapping: "username=value.username, spin_id=value.spinId, timestamp=value.timestamp, bet_amount=value.betAmount, win_amount=value.winAmount, result=value.result"
     topic.spin.history.slot_game.spins_by_user.primaryKey: "username, spin_id"
     topic.spin.history.slot_game.spins_by_user.consistencyLevel: "LOCAL_QUORUM"
