@@ -12,6 +12,7 @@ spec:
     chart: cert-manager
     repoURL: https://charts.jetstack.io
     targetRevision: v1.18.2
+  skipCrds: false
   values: |
     crd:
       enabled: true
