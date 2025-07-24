@@ -15,3 +15,5 @@ spec:
     keyspace: slot_game
     topic.spin.history.slot_game.spins_by_user.mapping: "username=value.username, spin_id=value.spinId, timestamp=value.timestamp, bet_amount=value.betAmount, win_amount=value.winAmount, result=value.result"
     topic.spin.history.slot_game.spins_by_user.consistencyLevel: "LOCAL_QUORUM"
+    auth.username: demo-superuser
+    auth.password: 6J1xnqV93RkEp4Qunvf4
