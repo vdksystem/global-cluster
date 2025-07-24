@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
   - k8ssandra-repo.yaml
   - cert-manager/app.yaml
-  - k8ssandra/app.yaml
+  - k8ssandra
