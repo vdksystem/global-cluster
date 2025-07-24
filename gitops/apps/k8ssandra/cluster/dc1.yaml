@@ -1,31 +1,35 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
+apiVersion: k8ssandra.io/v1alpha1
+kind: K8ssandraCluster
 metadata:
-  name: cassandra
+  name: demo
 spec:
-  project: default
-  source:
-    chart: k8ssandra
-    repoURL: https://helm.k8ssandra.io/stable
-    targetRevision: 1.5.2
-    helm:
-      releaseName: cassandra
-      namespace: k8ssandra
-      values: | 
-        cassandra:
-          auth:
-            enabled: true
-          clusterName: mixed-workload
-          datacenters:
-            - name: dc1
-              size: 3
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: k8ssandra
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-
+  cassandra:
+    serverVersion: "4.0.1"
+    storageConfig:
+      cassandraDataVolumeClaimSpec:
+        storageClassName: standard
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 5Gi
+    config:
+      jvmOptions:
+        heapSize: 512M
+    networking:
+      hostNetwork: true
+    datacenters:
+      - metadata:
+          name: dc1
+        k8sContext: kind-k8ssandra-1
+        size: 3
+        stargate:
+          size: 1
+          heapSize: 256M
+      - metadata:
+          name: dc2
+        k8sContext: kind-k8ssandra-2
+        size: 3
+        stargate:
+          size: 1
+          heapSize: 256M
