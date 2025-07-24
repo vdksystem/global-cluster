@@ -21,14 +21,6 @@ spec:
     datacenters:
       - metadata:
           name: dc1
-        k8sContext: kind-k8ssandra-1
-        size: 3
-        stargate:
-          size: 1
-          heapSize: 256M
-      - metadata:
-          name: dc2
-        k8sContext: kind-k8ssandra-2
         size: 3
         stargate:
           size: 1
