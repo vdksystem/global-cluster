@@ -1,8 +1,12 @@
+import json
+
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jose import jwt, JWTError
 from datetime import datetime, timedelta, UTC
 import uuid
+from confluent_kafka import Producer
+import socket
 
 from models import *
 from game_logic import generate_reels, calculate_win
@@ -15,9 +19,17 @@ ALGORITHM = "HS256"
 # Mock "DB"
 USERS = {"player": {"password": "test", "balance": 100.0, "history": []}}
 
+# my-cluster-kafka-bootstrap.kafka.svc.cluster.local
+conf = {'bootstrap.servers': 'localhost:9092',
+        'client.id': socket.gethostname()}
+
+producer = Producer(conf)
+
+
 def create_token(username: str):
     data = {"sub": username, "exp": datetime.now(UTC) + timedelta(hours=1)}
     return jwt.encode(data, SECRET_KEY, algorithm=ALGORITHM)
+
 
 def get_user_from_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
     try:
@@ -29,6 +41,7 @@ def get_user_from_token(credentials: HTTPAuthorizationCredentials = Depends(secu
     except JWTError:
         raise HTTPException(status_code=401)
 
+
 @app.post("/auth/login", response_model=TokenResponse)
 def login(data: LoginRequest):
     user = USERS.get(data.username)
@@ -37,6 +50,7 @@ def login(data: LoginRequest):
     token = create_token(data.username)
     return {"token": token}
 
+
 @app.post("/session/start")
 def start_session(username: str = Depends(get_user_from_token)):
     return {
@@ -44,13 +58,16 @@ def start_session(username: str = Depends(get_user_from_token)):
         "balance": USERS[username]["balance"]
     }
 
+
 @app.post("/session/end")
 def end_session(username: str = Depends(get_user_from_token)):
     return {"message": f"Session ended for user {username}"}
 
+
 @app.get("/balance")
 def get_balance(username: str = Depends(get_user_from_token)):
     return {"balance": USERS[username]["balance"]}
+
 
 @app.post("/game/spin", response_model=ReelResult)
 def spin(request: SpinRequest, username: str = Depends(get_user_from_token)):
@@ -64,13 +81,17 @@ def spin(request: SpinRequest, username: str = Depends(get_user_from_token)):
     user["balance"] += win
 
     spin_id = str(uuid.uuid4())
-    user["history"].append({
+    spn = {
         "spinId": spin_id,
-        "timestamp": datetime.now(UTC),
+        "timestamp": str(datetime.now(UTC)),
         "betAmount": request.betAmount,
         "winAmount": win,
+        "username":  username,
         "result": "WON" if win > 0 else "LOST"
-    })
+    }
+    user["history"].append(spn)
+
+    producer.produce("spin.history.slot_game.spins_by_user", value=json.dumps(spn).encode('utf-8'))
 
     return {
         "reels": reels,
@@ -80,6 +101,7 @@ def spin(request: SpinRequest, username: str = Depends(get_user_from_token)):
         "balanceAfter": user["balance"],
         "bonusTriggered": False
     }
+
 
 @app.get("/game/history", response_model=List[GameHistoryEntry])
 def history(username: str = Depends(get_user_from_token)):

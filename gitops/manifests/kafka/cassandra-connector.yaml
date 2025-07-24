@@ -9,7 +9,7 @@ spec:
   class: com.datastax.oss.kafka.sink.CassandraSinkConnector
   tasksMax: 1
   config:
-    topics: spin.history
+    topics: spin.history.slot_game.spins_by_user
     contactPoints: demo-dc1-contact-points-service.k8ssandra.svc.cluster.local
     loadBalancing.localDc: dc1
     keyspace: slot_game
