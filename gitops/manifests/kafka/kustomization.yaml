@@ -5,3 +5,4 @@ resources:
   - kafka-single-node.yaml
   - kafka-connect.yaml
   - cassandra-connector.yaml
+  - topics/spin_history.yaml
