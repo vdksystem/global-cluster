@@ -15,11 +15,3 @@ spec:
     key.converter: org.apache.kafka.connect.storage.StringConverter
     value.converter: org.apache.kafka.connect.json.JsonConverter
     value.converter.schemas.enable: false
-  build:
-    output:
-      image: your-dockerhub-user/kafka-connect-cassandra:latest
-    plugins:
-      - name: cassandra
-        artifacts:
-          - type: docker
-            url: docker.io/datastax/kafka-connect-cassandra-sink
