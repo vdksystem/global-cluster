@@ -12,10 +12,10 @@ spec:
     chart: cert-manager
     repoURL: https://charts.jetstack.io
     targetRevision: v1.18.2
-  skipCrds: false
-  parameters:
-    - name: installCRDs
-      value: "true"
+  values: |
+    installCRDs: true
+    crds:
+      enabled: true
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
