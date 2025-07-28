@@ -11,6 +11,8 @@ spec:
     name: signoz
     namespace: flux-system
   interval: 1m0s
+  install:
+    createNamespace: true
   dependsOn:
     - name: signoz
   values:
