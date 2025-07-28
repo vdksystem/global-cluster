@@ -3,13 +3,16 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: k8s-infra
-  namespace: signoz
+  namespace: flux-system
 spec:
-  chart: k8s-infra
-  sourceRef:
-    kind: HelmRepository
-    name: signoz
-    namespace: flux-system
+  chart:
+    spec:
+      chart: k8s-infra
+      sourceRef:
+        kind: HelmRepository
+        name: signoz
+        namespace: flux-system
+  targetNamespace: signoz
   interval: 1m0s
   install:
     createNamespace: true
@@ -20,7 +23,7 @@ spec:
       cloud: aws
       clusterName: production
       deploymentEnvironment: PRD
-#    otelCollectorEndpoint: :4317
+    otelCollectorEndpoint: signoz-signoz-otel-collector.signoz.svc.cluster.local:4317
     otelInsecure: true
     presets:
       otlpExporter:
