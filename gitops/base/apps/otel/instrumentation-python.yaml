@@ -2,9 +2,10 @@ apiVersion: opentelemetry.io/v1alpha1
 kind: Instrumentation
 metadata:
   name: python
+  namespace: apps
 spec:
   exporter:
-    endpoint: http://demo-collector:4318
+    endpoint: http://signoz-signoz-otel-collector.signoz.svc.cluster.local:4318
   propagators:
     - tracecontext
     - baggage
